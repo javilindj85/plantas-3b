@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Examen Completo: Las Plantas - 3.º B</title>
+  <style>
+    :root {
+      --primary: #2e7d32;
+      --primary-light: #e8f5e9;
+      --secondary: #ff8f00;
+      --bg: #f4f9f4;
+      --card: #ffffff;
+      --text: #263238;
+      --correct: #2e7d32;
+      --wrong: #c62828;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #43a047, #1b5e20);
+      color: white;
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 6px 15px rgba(27, 94, 32, 0.2);
+      margin-bottom: 25px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      margin: 8px 0 0;
+      font-size: 1.1rem;
+      opacity: 0.95;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      border-left: 6px solid var(--primary);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: var(--primary);
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .badge {
+      background: var(--primary-light);
+      color: var(--primary);
+      padding: 3px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .question-item {
+      margin: 14px 0;
+      padding: 12px;
+      border-radius: 8px;
+      background: #fafafa;
+      border: 1px solid #eee;
+    }
+
+    select, input[type="text"] {
+      padding: 7px 12px;
+      font-size: 1rem;
+      border: 2px solid #cfd8dc;
+      border-radius: 8px;
+      outline: none;
+      transition: 0.2s;
+      background: white;
+      color: var(--text);
+      margin: 2px 0;
+    }
+
+    select:focus, input[type="text"]:focus {
+      border-color: var(--primary);
+    }
+
+    input[type="text"] {
+      width: 175px;
+      font-weight: 600;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      cursor: pointer;
+      background: white;
+    }
+
+    .radio-option:hover {
+      background: var(--primary-light);
+    }
+
+    .needs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .check-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .step-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 8px 0;
+      flex-wrap: wrap;
+    }
+
+    .actions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    button {
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    .btn-check {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+    }
+
+    .btn-reset {
+      background: #eceff1;
+      color: #455a64;
+    }
+
+    #resultado {
+      display: none;
+      text-align: center;
+      padding: 25px;
+      border-radius: 16px;
+      margin-bottom: 30px;
+      font-size: 1.2rem;
+      background: white;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    }
+
+    .nota-grande {
+      font-size: 3rem;
+      font-weight: 900;
+      margin: 10px 0;
+    }
+
+    .ok {
+      border-color: var(--correct) !important;
+      background-color: #e8f5e9 !important;
+    }
+
+    .bad {
+      border-color: var(--wrong) !important;
+      background-color: #ffebee !important;
+    }
+
+    .feedback-text {
+      display: block;
+      font-size: 0.92rem;
+      margin-top: 6px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🌱 Examen Completo: Las Plantas</h1>
+    <p>Ciencias Naturales • 3.º B de Primaria • ¡A por el 10, Salva!</p>
+  </header>
+
+  <form id="quizForm">
+
+    <!-- BLOQUE 1: CARACTERÍSTICAS GENERALES -->
+    <div class="card">
+      <h2>1. Características generales de las plantas <span class="badge">3 preguntas</span></h2>
+      <p>Elige la opción correcta en cada desplegable:</p>
+
+      <div class="question-item" id="box-q1">
+        1.1. Las plantas suelen ser de color 
+        <select id="q1">
+          <option value="">-- Elige --</option>
+          <option value="azul">azul</option>
+          <option value="verde">verde</option>
+          <option value="rojo">rojo</option>
+        </select>.
+        <span class="feedback-text" id="fb-q1"></span>
+      </div>
+
+      <div class="question-item" id="box-q2">
+        1.2. Las plantas no se desplazan porque viven 
+        <select id="q2">
+          <option value="">-- Elige --</option>
+          <option value="volando">volando en el aire</option>
+          <option value="fijas">fijas en el suelo</option>
+          <option value="nadando">nadando en los ríos</option>
+        </select>, aunque pueden moverse.
+        <span class="feedback-text" id="fb-q2"></span>
+      </div>
+
+      <div class="question-item" id="box-q3">
+        1.3. ¿Tienen las plantas órganos de los sentidos (ojos, oídos, nariz...)? 
+        <select id="q3">
+          <option value="">-- Elige --</option>
+          <option value="si">Sí, tienen cinco sentidos</option>
+          <option value="no">No tienen órganos de los sentidos</option>
+        </select>.
+        <span class="feedback-text" id="fb-q3"></span>
+      </div>
+    </div>
+
+    <!-- BLOQUE 2: PARTES DE LA PLANTA -->
+    <div class="card">
+      <h2>2. Las partes de la planta <span class="badge">4 preguntas</span></h2>
+      <p>Escribe el nombre de cada parte de la planta (<strong>flor, hojas, tallo, raíz</strong>):</p>
+
+      <div class="question-item" id="box-q4">
+        2.1. Crece dentro del suelo y sirve para sujetar la planta y absorber agua y minerales: 
+        <input type="text" id="q4" placeholder="Escribe aquí...">
+        <span class="feedback-text" id="fb-q4"></span>
+      </div>
+
+      <div class="question-item" id="box-q5">
+        2.2. Crece sobre el suelo, mantiene la planta erguida y por su interior circulan el agua y los alimentos: 
+        <input type="text" id="q5" placeholder="Escribe aquí...">
+        <span class="feedback-text" id="fb-q5"></span>
+      </div>
+
+      <div class="question-item" id="box-q6">
+        2.3. Son generalmente planas, de color verde y en ellas se fabrica el alimento de la planta: 
+        <input type="text" id="q6" placeholder="Escribe aquí...">
+        <span class="feedback-text" id="fb-q6"></span>
+      </div>
+
+      <div class="question-item" id="box-q7">
+        2.4. Es la parte más vistosa y el órgano reproductor de la planta: 
+        <input type="text" id="q7" placeholder="Escribe aquí...">
+        <span class="feedback-text" id="fb-q7"></span>
+      </div>
+    </div>
+
+    <!-- BLOQUE 3: FUNCIÓN DE NUTRICIÓN Y NECESIDADES -->
+    <div class="card">
+      <h2>3. La función de nutrición <span class="badge">3 preguntas</span></h2>
+
+      <div class="question-item" id="box-q8">
+        3.1. Marca las <strong>4 cosas</strong> que necesitan las plantas para vivir:
+        <div class="needs-grid">
+          <label class="check-pill"><input type="checkbox" name="necesitan" value="tierra"> 🌍 Tierra</label>
+          <label class="check-pill"><input type="checkbox" name="necesitan" value="carne"> 🥩 Carne</label>
+          <label class="check-pill"><input type="checkbox" name="necesitan" value="sol"> ☀️ Sol</label>
+          <label class="check-pill"><input type="checkbox" name="necesitan" value="agua"> 💧 Agua</label>
+          <label class="check-pill"><input type="checkbox" name="necesitan" value="aire"> 💨 Aire</label>
+          <label class="check-pill"><input type="checkbox" name="necesitan" value="leche"> 🥛 Leche</label>
+        </div>
+        <span class="feedback-text" id="fb-q8"></span>
+      </div>
+
+      <div class="question-item" id="box-q9">
+        3.2. Escribe cómo se llama el proceso por el que las hojas mezclan la luz del sol, el agua y las sales minerales para fabricar su alimento:<br>
+        La <input type="text" id="q9" placeholder="Escribe la palabra...">
+        <span class="feedback-text" id="fb-q9"></span>
+      </div>
+
+      <div class="question-item" id="box-q10">
+        3.3. ¿Qué ocurre en la fotosíntesis y en la respiración? Elige la verdadera:
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="q10" value="a">
+            Al hacer la fotosíntesis producen oxígeno, y al respirar toman oxígeno y expulsan dióxido de carbono.
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="q10" value="b">
+            Las plantas no respiran nunca, solo absorben agua por las flores.
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="q10" value="c">
+            Al hacer la fotosíntesis producen tierra y piedras dentro del tallo.
+          </label>
+        </div>
+        <span class="feedback-text" id="fb-q10"></span>
+      </div>
+    </div>
+
+    <!-- BLOQUE 4: LA FUNCIÓN DE RELACIÓN -->
+    <div class="card">
+      <h2>4. La función de relación <span class="badge">1 pregunta</span></h2>
+
+      <div class="question-item" id="box-q11">
+        4.1. Aunque no tienen órganos de los sentidos, las plantas notan lo que sucede a su alrededor y reaccionan a los cambios. Une cada planta con su reacción:
+        <div class="step-row">
+          • Los <strong>girasoles</strong> 
+          <select id="q11a">
+            <option value="">-- Elige --</option>
+            <option value="hojas">pierden sus hojas cuando hace mucho frío.</option>
+            <option value="sol">se mueven buscando la luz del sol.</option>
+            <option value="insectos">cierran sus hojas para capturar insectos.</option>
+          </select>
+        </div>
+        <div class="step-row">
+          • Las <strong>plantas carnívoras</strong> 
+          <select id="q11b">
+            <option value="">-- Elige --</option>
+            <option value="hojas">pierden sus hojas cuando hace mucho frío.</option>
+            <option value="sol">se mueven buscando la luz del sol.</option>
+            <option value="insectos">cierran sus hojas para capturar insectos.</option>
+          </select>
+        </div>
+        <div class="step-row">
+          • <strong>Algunas plantas</strong> 
+          <select id="q11c">
+            <option value="">-- Elige --</option>
+            <option value="hojas">pierden sus hojas cuando hace mucho frío.</option>
+            <option value="sol">se mueven buscando la luz del sol.</option>
+            <option value="insectos">cierran sus hojas para capturar insectos.</option>
+          </select>
+        </div>
+        <span class="feedback-text" id="fb-q11"></span>
+      </div>
+    </div>
+
+    <!-- BLOQUE 5: LA FUNCIÓN DE REPRODUCCIÓN -->
+    <div class="card">
+      <h2>5. La función de reproducción <span class="badge">3 preguntas</span></h2>
+
+      <div class="question-item" id="box-q12">
+        5.1. Completa cómo se reproducen los dos grupos de plantas (<strong>semilla</strong> / <strong>esporas</strong>):<br>
+        • Las plantas <strong>con flor</strong> (como margarita, rosa, clavel, limonero o naranjo) se reproducen mediante el fruto y la 
+        <input type="text" id="q12a" placeholder="Escribe aquí...">.<br>
+        • Las plantas <strong>sin flor</strong> (como los <strong>musgos</strong> y los <strong>helechos</strong>) se reproducen a través de 
+        <input type="text" id="q12b" placeholder="Escribe aquí...">.
+        <span class="feedback-text" id="fb-q12"></span>
+      </div>
+
+      <div class="question-item" id="box-q13">
+        5.2. Ordena del <strong>1 al 3</strong> el proceso de reproducción de las plantas con flor:
+        <div class="step-row">
+          <select id="q13a">
+            <option value="">Paso...</option>
+            <option value="1">1.º</option>
+            <option value="2">2.º</option>
+            <option value="3">3.º</option>
+          </select>
+          <span>El <strong>pistilo</strong> cambia su forma y se convierte en el <strong>fruto</strong>. Dentro del fruto están las <strong>semillas</strong>.</span>
+        </div>
+        <div class="step-row">
+          <select id="q13b">
+            <option value="">Paso...</option>
+            <option value="1">1.º</option>
+            <option value="2">2.º</option>
+            <option value="3">3.º</option>
+          </select>
+          <span>El <strong>polen</strong> de una flor llega al <strong>pistilo</strong> de otra flor a través del viento o los insectos.</span>
+        </div>
+        <div class="step-row">
+          <select id="q13c">
+            <option value="">Paso...</option>
+            <option value="1">1.º</option>
+            <option value="2">2.º</option>
+            <option value="3">3.º</option>
+          </select>
+          <span>Las <strong>semillas</strong> caen al suelo y crece la nueva planta.</span>
+        </div>
+        <span class="feedback-text" id="fb-q13"></span>
+      </div>
+
+      <div class="question-item" id="box-q14">
+        5.3. Selecciona cuáles de estas son plantas <strong>SIN flores y SIN semillas</strong>:
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="q14" value="a">
+            Musgos y helechos.
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="q14" value="b">
+            Margarita, rosa y limonero.
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="q14" value="c">
+            Naranjo y clavel.
+          </label>
+        </div>
+        <span class="feedback-text" id="fb-q14"></span>
+      </div>
+    </div>
+
+    <!-- BLOQUE 6: PARTES DE LA FLOR -->
+    <div class="card">
+      <h2>6. Partes de la flor <span class="badge">2 preguntas</span></h2>
+
+      <div class="question-item" id="box-q15">
+        6.1. Escribe el nombre de estas dos partes de la flor (<strong>corola</strong> / <strong>cáliz</strong>):<br>
+        • Está formada por los <strong>pétalos</strong>: <input type="text" id="q15a" placeholder="Escribe aquí..."><br>
+        • Está formado por los <strong>sépalos</strong>: <input type="text" id="q15b" placeholder="Escribe aquí...">
+        <span class="feedback-text" id="fb-q15"></span>
+      </div>
+
+      <div class="question-item" id="box-q16">
+        6.2. Completa sobre los órganos reproductores de la flor (<strong>estambres</strong> / <strong>pistilo</strong>):<br>
+        • En los <input type="text" id="q16a" placeholder="Escribe aquí..."> se forma el <strong>polen</strong>.<br>
+        • El <input type="text" id="q16b" placeholder="Escribe aquí..."> es la parte de la flor que recibe el polen y se transforma en el fruto.
+        <span class="feedback-text" id="fb-q16"></span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn-check" onclick="corregirExamen()">✅ Corregir Examen</button>
+      <button type="button" class="btn-reset" onclick="reiniciarExamen()">🔄 Volver a empezar</button>
+    </div>
+
+  </form>
+
+  <div id="resultado">
+    <div id="mensaje-nota"></div>
+    <div class="nota-grande" id="puntuacion-final"></div>
+    <div id="detalle-aciertos"></div>
+  </div>
+</div>
+
+<script>
+  function normalizar(texto) {
+    return texto
+      .toLowerCase()
+      .trim()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function marcarEstado(idBox, idFb, esCorrecto, textoExplicacion) {
+    const box = document.getElementById(idBox);
+    const fb = document.getElementById(idFb);
+    box.classList.remove("ok", "bad");
+    if (esCorrecto) {
+      box.classList.add("ok");
+      fb.style.color = "#2e7d32";
+      fb.textContent = "✔ ¡Muy bien!";
+    } else {
+      box.classList.add("bad");
+      fb.style.color = "#c62828";
+      fb.textContent = "✘ " + textoExplicacion;
+    }
+  }
+
+  function corregirExamen() {
+    let aciertos = 0;
+    const totalPreguntas = 16;
+
+    // 1.1
+    const q1 = document.getElementById("q1").value === "verde";
+    if (q1) aciertos++;
+    marcarEstado("box-q1", "fb-q1", q1, "La respuesta correcta es: verde.");
+
+    // 1.2
+    const q2 = document.getElementById("q2").value === "fijas";
+    if (q2) aciertos++;
+    marcarEstado("box-q2", "fb-q2", q2, "La respuesta correcta es: fijas en el suelo.");
+
+    // 1.3
+    const q3 = document.getElementById("q3").value === "no";
+    if (q3) aciertos++;
+    marcarEstado("box-q3", "fb-q3", q3, "La respuesta correcta es: No tienen órganos de los sentidos.");
+
+    // 2.1 Raíz
+    const val4 = normalizar(document.getElementById("q4").value);
+    const q4 = (val4 === "raiz" || val4 === "la raiz");
+    if (q4) aciertos++;
+    marcarEstado("box-q4", "fb-q4", q4, "Es la raíz.");
+
+    // 2.2 Tallo
+    const val5 = normalizar(document.getElementById("q5").value);
+    const q5 = (val5 === "tallo" || val5 === "el tallo");
+    if (q5) aciertos++;
+    marcarEstado("box-q5", "fb-q5", q5, "Es el tallo.");
+
+    // 2.3 Hojas
+    const val6 = normalizar(document.getElementById("q6").value);
+    const q6 = (val6 === "hojas" || val6 === "hoja" || val6 === "las hojas" || val6 === "la hoja");
+    if (q6) aciertos++;
+    marcarEstado("box-q6", "fb-q6", q6, "Son las hojas.");
+
+    // 2.4 Flor
+    const val7 = normalizar(document.getElementById("q7").value);
+    const q7 = (val7 === "flor" || val7 === "la flor");
+    if (q7) aciertos++;
+    marcarEstado("box-q7", "fb-q7", q7, "Es la flor.");
+
+    // 3.1 Checkboxes
+    const marcados = Array.from(document.querySelectorAll('input[name="necesitan"]:checked')).map(el => el.value);
+    const correctosNec = ["tierra", "sol", "agua", "aire"];
+    const q8 = marcados.length === 4 && correctosNec.every(item => marcados.includes(item));
+    if (q8) aciertos++;
+    marcarEstado("box-q8", "fb-q8", q8, "Necesitan exactamente 4 cosas: tierra, sol, agua y aire.");
+
+    // 3.2 Fotosíntesis
+    const val9 = normalizar(document.getElementById("q9").value);
+    const q9 = (val9 === "fotosintesis");
+    if (q9) aciertos++;
+    marcarEstado("box-q9", "fb-q9", q9, "Se llama fotosíntesis.");
+
+    // 3.3 Radio
+    const radioSel = document.querySelector('input[name="q10"]:checked');
+    const q10 = radioSel && radioSel.value === "a";
+    if (q10) aciertos++;
+    marcarEstado("box-q10", "fb-q10", q10, "La primera opción es la correcta.");
+
+    // 4.1 Relación
+    const q11 = (
+      document.getElementById("q11a").value === "sol" &&
+      document.getElementById("q11b").value === "insectos" &&
+      document.getElementById("q11c").value === "hojas"
+    );
+    if (q11) aciertos++;
+    marcarEstado("box-q11", "fb-q11", q11, "Girasoles → buscan el sol; Carnívoras → capturan insectos; Algunas plantas → pierden sus hojas con el frío.");
+
+    // 5.1 Semilla y esporas
+    const v12a = normalizar(document.getElementById("q12a").value);
+    const v12b = normalizar(document.getElementById("q12b").value);
+    const q12 = (v12a === "semilla" || v12a === "semillas") && (v12b === "esporas" || v12b === "espora");
+    if (q12) aciertos++;
+    marcarEstado("box-q12", "fb-q12", q12, "Con flor: semilla. Sin flor: esporas.");
+
+    // 5.2 Orden pasos
+    const q13 = (
+      document.getElementById("q13a").value === "2" &&
+      document.getElementById("q13b").value === "1" &&
+      document.getElementById("q13c").value === "3"
+    );
+    if (q13) aciertos++;
+    marcarEstado("box-q13", "fb-q13", q13, "El orden correcto es: 2.º (el pistilo se convierte en fruto), 1.º (el polen llega al pistilo), 3.º (las semillas caen al suelo).");
+
+    // 5.3 Musgos y helechos
+    const radio14 = document.querySelector('input[name="q14"]:checked');
+    const q14 = radio14 && radio14.value === "a";
+    if (q14) aciertos++;
+    marcarEstado("box-q14", "fb-q14", q14, "Los musgos y los helechos son plantas sin flores y sin semillas.");
+
+    // 6.1 Corola y cáliz
+    const v15a = normalizar(document.getElementById("q15a").value);
+    const v15b = normalizar(document.getElementById("q15b").value);
+    const q15 = (v15a === "corola" || v15a === "la corola") && (v15b === "caliz" || v15b === "el caliz");
+    if (q15) aciertos++;
+    marcarEstado("box-q15", "fb-q15", q15, "Pétalos → corola. Sépalos → cáliz.");
+
+    // 6.2 Estambres y pistilo
+    const v16a = normalizar(document.getElementById("q16a").value);
+    const v16b = normalizar(document.getElementById("q16b").value);
+    const q16 = (v16a === "estambres" || v16a === "estambre") && (v16b === "pistilo");
+    if (q16) aciertos++;
+    marcarEstado("box-q16", "fb-q16", q16, "El polen se forma en los estambres y llega al pistilo.");
+
+    // Cálculo nota sobre 10
+    const nota = ((aciertos / totalPreguntas) * 10).toFixed(1).replace(".0", "");
+
+    const resDiv = document.getElementById("resultado");
+    const msgNota = document.getElementById("mensaje-nota");
+    const puntFinal = document.getElementById("puntuacion-final");
+    const detAciertos = document.getElementById("detalle-aciertos");
+
+    resDiv.style.display = "block";
+    puntFinal.textContent = nota + " / 10";
+    detAciertos.textContent = "Has acertado " + aciertos + " de " + totalPreguntas + " preguntas.";
+
+    if (aciertos === totalPreguntas) {
+      puntFinal.style.color = "#2e7d32";
+      msgNota.textContent = "🏆 ¡MATRÍCULA DE HONOR! ¡Te sabes todo el tema perfecto!";
+    } else if (nota >= 7) {
+      puntFinal.style.color = "#2e7d32";
+      msgNota.textContent = "🌟 ¡Genial! Muy buena nota, revisa solo los fallitos en rojo.";
+    } else if (nota >= 5) {
+      puntFinal.style.color = "#ef6c00";
+      msgNota.textContent = "👍 ¡Aprobado! Repasa un poquito más la ficha para sacar un 10.";
+    } else {
+      puntFinal.style.color = "#c62828";
+      msgNota.textContent = "💪 ¡A seguir practicando! Lee los apuntes y vuelve a intentarlo.";
+    }
+
+    resDiv.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function reiniciarExamen() {
+    document.getElementById("quizForm").reset();
+    document.getElementById("resultado").style.display = "none";
+    for (let i = 1; i <= 16; i++) {
+      const box = document.getElementById("box-q" + i);
+      const fb = document.getElementById("fb-q" + i);
+      box.classList.remove("ok", "bad");
+      fb.textContent = "";
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+</script>
+
+</body>
+</html>
